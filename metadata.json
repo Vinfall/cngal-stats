@@ -1,0 +1,72 @@
+{
+  "title": "非官方 CnGal 数据汇总",
+  "description": "数据来自 CnGal 资料站数据汇总: https://www.cngal.org/data",
+  "plugins": {
+    "datasette-dashboards": {
+      "game-stats": {
+        "title": "非官方 CnGal 数据分析",
+        "description": "数据来自 CnGal 资料站数据汇总: https://www.cngal.org/data",
+        "layout": [
+          [
+            "note",
+            "timeline"
+          ]
+        ],
+        "filters": {
+          "released": {
+            "name": "发行时间",
+            "type": "date",
+            "default": "2025-01-01"
+          },
+          "platform": {
+            "name": "游戏平台",
+            "type": "select",
+            "db": "cngal",
+            "query": "SELECT DISTINCT 游戏平台 FROM game WHERE 游戏平台 IS NOT NULL ORDER BY 游戏平台 ASC"
+          },
+          "dev": {
+            "name": "制作组",
+            "type": "select",
+            "db": "cngal",
+            "query": "SELECT DISTINCT 制作组 FROM game WHERE 制作组 IS NOT NULL ORDER BY 制作组 ASC"
+          },
+          "pub": {
+            "name": "发行商",
+            "type": "select",
+            "db": "cngal",
+            "query": "SELECT DISTINCT 发行商 FROM game WHERE 发行商 IS NOT NULL ORDER BY 发行商 ASC"
+          }
+        },
+        "charts": {
+          "note": {
+            "library": "markdown",
+            "display": "## Game Stats\n>Placeholder"
+          },
+          "timeline": {
+            "title": "Timeline",
+            "db": "cngal",
+            "query": "SELECT date(发行时间) as day, count(*) as count FROM game WHERE TRUE\n  [[ AND 发行时间 >= date(:released) ]]\n  [[ AND 游戏平台 = :platform ]]\n  [[ AND 制作组 = :dev ]]\n  [[ AND 发行商 = :pub ]]\nGROUP BY day ORDER BY day",
+            "library": "vega-lite",
+            "display": {
+              "mark": {
+                "type": "line",
+                "tooltip": true
+              },
+              "encoding": {
+                "x": {
+                  "field": "day",
+                  "type": "temporal",
+                  "timeUnit": "yearmonthdate"
+                },
+                "y": {
+                  "field": "count",
+                  "type": "quantitative"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

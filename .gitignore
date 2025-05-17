@@ -1,0 +1,16 @@
+# venv
+.venv
+# data
+*.csv
+*.tsv
+*.db
+*.db3
+*.sqlite
+*.sqlite3
+.bak
+# output
+output/*
+!output/.gitkeep
+# misc
+archive
+.vercel

@@ -1,0 +1,53 @@
+[tools]
+uv = "latest"
+"pipx:datasette" = "latest"
+"pipx:sqlite-utils" = "latest"
+
+[settings.pipx]
+uvx = true
+
+# hide global tasks
+[tasks.changelog]
+hide = true
+[tasks."lint:infra"]
+hide = true
+
+[tasks.install]
+description = "install dependencies"
+run = """
+#!/usr/bin/env bash
+# datasette install datasette-publish-vercel
+datasette install datasette-dashboards
+"""
+hide = true
+
+[tasks.public]
+description = "make public dump"
+env.DATA = "cngal.csv"
+env.DB = "cngal.db"
+run = """
+#!/usr/bin/env bash
+sqlite-utils insert $DB game $DATA --csv
+"""
+depends = ["clean"]
+hide = true
+
+[tasks.serve]
+description = "start local server"
+env.DB = "cngal.db"
+run = """
+#!/usr/bin/env bash
+datasette serve $DB -m metadata.json
+"""
+alias = "run"
+depends = "public"
+
+[tasks.clean]
+description = "clean cache"
+env.DB = "cngal.db"
+run = """
+#!/usr/bin/env bash
+rm $DB || true
+"""
+hide = true
+
