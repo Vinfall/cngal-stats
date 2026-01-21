@@ -2,6 +2,12 @@
 
 WIP CnGal Statistics Visualization Demo.
 
+## TODO
+
+- automate renaming of exported CSV files
+- `真实Id` -> `index`, rm `Id`
+- datasette-dashboards
+
 ## Setup
 
 [CnGal 资料站数据汇总][data] 页面下载数据：导出数据 -> CSV -> 去掉形如 `- 1021条记录` 的后缀 -> 保存，重复保存每一项数据到本项目目录。
