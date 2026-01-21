@@ -1,10 +1,19 @@
 [tools]
 uv = "latest"
+# node = "lts"
+# pnpm = "latest"
 "pipx:datasette" = "latest"
 "pipx:sqlite-utils" = "latest"
+# "npm:vercel" = "latest"
+# latest version of @vercel/python in `vercel.json`
+# linter
+"pipx:sqlfluff" = "latest"
 
 [settings.pipx]
 uvx = true
+
+[settings.npm]
+package_manager = "pnpm"
 
 # hide global tasks
 [tasks.changelog]
@@ -16,18 +25,37 @@ hide = true
 description = "install dependencies"
 run = """
 #!/usr/bin/env bash
-# datasette install datasette-publish-vercel
+# datasette install https://github.com/Vinfall/datasette2vercel/archive/main.zip
 datasette install datasette-dashboards
+"""
+hide = true
+
+[tasks.init]
+description = "init Vercel project"
+env.DB = "cngal.db"
+env.PROJ = "cngal-stats"
+env.META = "metadata.json"
+run = """
+#!/usr/bin/env bash
+datasette publish vercel $DB -m $META --project=$PROJ --generate-vercel-json > vercel.json
+vercel link
+echo "Now remove deprecated name property in vercel.json"
 """
 hide = true
 
 [tasks.public]
 description = "make public dump"
-env.DATA = "cngal.csv"
+env.DATA = "游戏.csv"
 env.DB = "cngal.db"
 run = """
 #!/usr/bin/env bash
 sqlite-utils insert $DB game $DATA --csv
+sqlite-utils insert $DB group 组织.csv --csv
+sqlite-utils insert $DB staff STAFF.csv --csv
+sqlite-utils insert $DB prod 制作人.csv --csv
+sqlite-utils insert $DB char 角色.csv --csv
+sqlite-utils insert $DB price 商店信息.csv --csv
+# sqlite-utils insert $DB rate 评分.csv --csv
 """
 depends = ["clean"]
 hide = true
@@ -42,6 +70,21 @@ datasette serve $DB -m metadata.json
 alias = "run"
 depends = "public"
 
+[tasks.deploy]
+description = "deploy on Vercel"
+env.DB = "cngal.db"
+env.PROJ = "cngal-stats"
+env.META = "metadata.json"
+run = """
+#!/usr/bin/env bash
+datasette publish vercel $DB \
+  --metadata=$META \
+  --install=datasette-dashboards \
+  --project=$PROJ
+"""
+# depends = ["backup", "public"]
+hide = true
+
 [tasks.clean]
 description = "clean cache"
 env.DB = "cngal.db"
@@ -50,4 +93,3 @@ run = """
 rm $DB || true
 """
 hide = true
-
