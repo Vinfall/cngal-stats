@@ -22,7 +22,7 @@ hide = true
 hide = true
 
 [tasks.install]
-description = "install dependencies"
+description = "安装依赖"
 run = """
 #!/usr/bin/env bash
 # datasette install https://github.com/Vinfall/datasette2vercel/archive/main.zip
@@ -31,7 +31,7 @@ datasette install datasette-dashboards
 hide = true
 
 [tasks.init]
-description = "init Vercel project"
+description = "初始化 Vercel 项目"
 env.DB = "cngal.db"
 env.PROJ = "cngal-stats"
 env.META = "metadata.json"
@@ -43,8 +43,24 @@ echo "Now remove deprecated name property in vercel.json"
 """
 hide = true
 
+
+[tasks.rename]
+description = "重命名导出文件"
+run = """
+#!/usr/bin/env bash
+for file in *" - "*条记录.csv; do
+    if [[ -f "$file" ]]; then
+        # ${file%% - *}: 删除从左往右第一个 " - " 及之后的内容
+        name="${file%% - *}"
+        new_name="${name}.csv"
+        mv "$file" "$new_name"
+    fi
+done
+"""
+hide = true
+
 [tasks.public]
-description = "make public dump"
+description = "生成数据库"
 env.DATA = "游戏.csv"
 env.DB = "cngal.db"
 run = """
@@ -55,13 +71,13 @@ sqlite-utils insert $DB staff STAFF.csv --csv
 sqlite-utils insert $DB prod 制作人.csv --csv
 sqlite-utils insert $DB char 角色.csv --csv
 sqlite-utils insert $DB price 商店信息.csv --csv
-# sqlite-utils insert $DB rate 评分.csv --csv
+sqlite-utils insert $DB rating 评分.csv --csv
 """
-depends = ["clean"]
+depends = ["clean", "rename"]
 hide = true
 
 [tasks.serve]
-description = "start local server"
+description = "启动服务"
 env.DB = "cngal.db"
 run = """
 #!/usr/bin/env bash
@@ -71,7 +87,7 @@ alias = "run"
 depends = "public"
 
 [tasks.deploy]
-description = "deploy on Vercel"
+description = "部署到 Vercel"
 env.DB = "cngal.db"
 env.PROJ = "cngal-stats"
 env.META = "metadata.json"
@@ -86,7 +102,7 @@ datasette publish vercel $DB \
 hide = true
 
 [tasks.clean]
-description = "clean cache"
+description = "清理缓存"
 env.DB = "cngal.db"
 run = """
 #!/usr/bin/env bash

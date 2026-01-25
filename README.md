@@ -4,13 +4,12 @@ WIP CnGal Statistics Visualization Demo.
 
 ## TODO
 
-- automate renaming of exported CSV files
 - `真实Id` -> `index`, rm `Id`
 - datasette-dashboards
 
-## Setup
+## 启动
 
-[CnGal 资料站数据汇总][data] 页面下载数据：导出数据 -> CSV -> 去掉形如 `- 1021条记录` 的后缀 -> 保存，重复保存每一项数据到本项目目录。
+[CnGal 资料站数据汇总][data] 页面下载数据：导出数据 -> CSV -> 保存，重复保存每一项数据到本项目目录。
 
 ```sh
 # 安装命令行依赖
@@ -23,7 +22,7 @@ mise run serve
 
 访问 <http://127.0.0.1:8001/cngal> 即可。
 
-## Uninstall
+## 卸载
 
 ```sh
 # 删除数据库
