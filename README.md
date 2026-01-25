@@ -4,7 +4,6 @@ WIP CnGal Statistics Visualization Demo.
 
 ## TODO
 
-- `真实Id` -> `index`, rm `Id`
 - datasette-dashboards
 
 ## 启动

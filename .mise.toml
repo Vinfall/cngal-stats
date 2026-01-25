@@ -65,13 +65,22 @@ env.DATA = "游戏.csv"
 env.DB = "cngal.db"
 run = """
 #!/usr/bin/env bash
-sqlite-utils insert $DB game $DATA --csv
-sqlite-utils insert $DB group 组织.csv --csv
-sqlite-utils insert $DB staff STAFF.csv --csv
-sqlite-utils insert $DB prod 制作人.csv --csv
-sqlite-utils insert $DB char 角色.csv --csv
-sqlite-utils insert $DB price 商店信息.csv --csv
-sqlite-utils insert $DB rating 评分.csv --csv
+# 导入并检测列的类型
+sqlite-utils insert $DB game $DATA --csv --detect-types
+# 使用 index (真实 Id)
+sqlite-utils transform $DB game --drop Id --rename 真实Id Id --pk Id
+# 检查 table schema
+# sqlite-utils schema $DB game
+sqlite-utils insert $DB group 组织.csv --csv --detect-types
+sqlite-utils transform $DB group --drop Id --rename 真实Id Id --pk Id
+sqlite-utils insert $DB staff STAFF.csv --csv --detect-types
+sqlite-utils transform $DB staff --drop Id --rename 真实Id Id --pk Id
+sqlite-utils insert $DB prod 制作人.csv --csv --detect-types
+sqlite-utils transform $DB prod --drop Id --rename 真实Id Id --pk Id
+sqlite-utils insert $DB char 角色.csv --csv --detect-types
+sqlite-utils transform $DB char --drop Id --rename 真实Id Id --pk Id
+sqlite-utils insert $DB price 商店信息.csv --csv --detect-types
+sqlite-utils insert $DB rating 评分.csv --csv --detect-types
 """
 depends = ["clean", "rename"]
 hide = true
