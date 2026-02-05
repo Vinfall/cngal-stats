@@ -18,6 +18,7 @@ package_manager = "pnpm"
 # hide global tasks
 [tasks.changelog]
 hide = true
+
 [tasks."lint:infra"]
 hide = true
 
@@ -42,7 +43,6 @@ vercel link
 echo "Now remove deprecated name property in vercel.json"
 """
 hide = true
-
 
 [tasks.rename]
 description = "重命名导出文件"
