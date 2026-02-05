@@ -4,7 +4,7 @@ uv = "latest"
 # pnpm = "latest"
 "pipx:datasette" = "latest"
 "pipx:sqlite-utils" = "latest"
-# "npm:vercel" = "latest"
+# vercel = "latest"
 # latest version of @vercel/python in `vercel.json`
 # linter
 "pipx:sqlfluff" = "latest"
