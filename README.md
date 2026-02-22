@@ -11,6 +11,8 @@
 [CnGal 资料站数据汇总][data] 页面下载数据：导出数据 -> CSV -> 保存，重复保存每一项数据到本项目目录。
 
 ```sh
+# 参考文档安装 mise
+# https://mise.jdx.dev/getting-started.html#installing-mise-cli
 # 安装命令行依赖
 mise install
 # 安装额外的 datasette 依赖
@@ -36,6 +38,6 @@ rm -rf cngal-stats
 
 ## 协议
 
-本项目不含 CnGal 数据，代码本身在法律允许的范围内采用 **[CC0-1.0](COPYING)** 或 **公有领域（Public Domain）** 授权发布。
+本项目不含 CnGal 数据，代码本身采用 **[CC0-1.0](COPYING)** 或 **公有领域（Public Domain）** 授权，并在法律允许的范围内最大限度地豁免权利。
 
 [data]: https://www.cngal.org/data
