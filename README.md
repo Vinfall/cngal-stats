@@ -1,6 +1,6 @@
 # CnGal Stats
 
-WIP CnGal Statistics Visualization Demo.
+(WIP) CnGal Statistics Visualization Demo.
 
 ## TODO
 
