@@ -34,4 +34,8 @@ cd ..
 rm -rf cngal-stats
 ```
 
+## 协议
+
+本项目不含 CnGal 数据，代码本身在法律允许的范围内采用 **[CC0-1.0](COPYING)** 或 **公有领域（Public Domain）** 授权发布。
+
 [data]: https://www.cngal.org/data
