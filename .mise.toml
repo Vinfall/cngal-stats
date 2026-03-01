@@ -3,7 +3,7 @@
 [tools]
 uv = "latest"
 # node = "lts"
-# pnpm = "latest"
+# bun = "latest"
 "pipx:datasette" = "latest"
 "pipx:sqlite-utils" = "latest"
 # vercel = "latest"
@@ -15,7 +15,7 @@ uv = "latest"
 uvx = true
 
 [settings.npm]
-package_manager = "pnpm"
+package_manager = "bun"
 
 # hide global tasks
 [tasks."lint:infra"]
