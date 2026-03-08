@@ -1,5 +1,3 @@
-#:tombi schema.strict = false
-
 [tools]
 uv = "latest"
 # node = "lts"
