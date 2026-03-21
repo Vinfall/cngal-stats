@@ -6,8 +6,7 @@ uv = "latest"
 "pipx:sqlite-utils" = "latest"
 # vercel = "latest"
 # latest version of @vercel/python in `vercel.json`
-# linter
-"pipx:sqlfluff" = "latest"
+# https://github.com/vercel/vercel/releases?q=python
 
 [settings.pipx]
 uvx = true
@@ -15,15 +14,12 @@ uvx = true
 [settings.npm]
 package_manager = "pnpm"
 
-# hide global tasks
-[tasks."lint:infra"]
-hide = true
-
 [tasks.install]
 description = "安装依赖"
 run = """
 #!/usr/bin/env bash
 # datasette install https://github.com/Vinfall/datasette2vercel/archive/main.zip
+# datasette install datasette-block-robots
 datasette install datasette-dashboards
 """
 hide = true
@@ -102,6 +98,7 @@ run = """
 datasette publish vercel $DB \
   --metadata=$META \
   --install=datasette-dashboards \
+  --install=datasette-block-robots \
   --project=$PROJ
 """
 # depends = ["backup", "public"]
