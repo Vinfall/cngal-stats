@@ -33,7 +33,7 @@ run = """
 #!/usr/bin/env bash
 datasette publish vercel $DB -m $META --project=$PROJ --generate-vercel-json > vercel.json
 vercel link
-echo "Now remove deprecated name property in vercel.json"
+echo "现在可以移除 vercel.json 中的 name"
 """
 hide = true
 
