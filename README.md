@@ -13,6 +13,8 @@
 ```sh
 # 参考文档安装 mise
 # https://mise.jdx.dev/getting-started.html#installing-mise-cli
+# 信任 mise 配置
+mise trust
 # 安装命令行依赖
 mise install
 # 安装额外的 datasette 依赖
