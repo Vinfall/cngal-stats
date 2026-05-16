@@ -74,6 +74,8 @@ sqlite-utils insert $DB char 角色.csv --csv --detect-types
 sqlite-utils transform $DB char --drop Id --rename 真实Id Id --pk Id
 sqlite-utils insert $DB price 商店信息.csv --csv --detect-types
 sqlite-utils insert $DB rating 评分.csv --csv --detect-types
+# 优化数据库
+sqlite-utils optimize $DB
 """
 depends = ["clean", "rename"]
 hide = true
