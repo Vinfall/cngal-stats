@@ -16,25 +16,25 @@
           "released": {
             "name": "发行时间",
             "type": "date",
-            "default": "2025-01-01"
+            "default": "2026-01-01"
           },
           "platform": {
             "name": "游戏平台",
             "type": "select",
             "db": "cngal",
-            "query": "SELECT DISTINCT 游戏平台 FROM game WHERE 游戏平台 IS NOT NULL ORDER BY 游戏平台 ASC"
+            "query": "SELECT DISTINCT 游戏平台 FROM 游戏 WHERE 游戏平台 != '' ORDER BY 游戏平台 ASC"
           },
           "dev": {
             "name": "制作组",
             "type": "select",
             "db": "cngal",
-            "query": "SELECT DISTINCT 制作组 FROM game WHERE 制作组 IS NOT NULL ORDER BY 制作组 ASC"
+            "query": "SELECT DISTINCT 制作组 FROM 游戏 WHERE 制作组 != '' ORDER BY 制作组 ASC"
           },
           "pub": {
             "name": "发行商",
             "type": "select",
             "db": "cngal",
-            "query": "SELECT DISTINCT 发行商 FROM game WHERE 发行商 IS NOT NULL ORDER BY 发行商 ASC"
+            "query": "SELECT DISTINCT 发行商 FROM 游戏 WHERE 发行商 != '' ORDER BY 发行商 ASC"
           }
         },
         "charts": {
@@ -45,7 +45,7 @@
           "timeline": {
             "title": "Timeline",
             "db": "cngal",
-            "query": "SELECT date(发行时间) as day, count(*) as count FROM game WHERE TRUE\n  [[ AND 发行时间 >= date(:released) ]]\n  [[ AND 游戏平台 = :platform ]]\n  [[ AND 制作组 = :dev ]]\n  [[ AND 发行商 = :pub ]]\nGROUP BY day ORDER BY day",
+            "query": "SELECT date(发行时间) as day, count(*) as count FROM 游戏 WHERE TRUE\n  [[ AND 发行时间 >= date(:released) ]]\n  [[ AND 游戏平台 = :platform ]]\n  [[ AND 制作组 = :dev ]]\n  [[ AND 发行商 = :pub ]]\nGROUP BY day ORDER BY day",
             "library": "vega-lite",
             "display": {
               "mark": {
