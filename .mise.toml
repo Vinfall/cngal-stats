@@ -3,16 +3,12 @@ uv = "latest"
 "pipx:datasette" = "latest"
 "pipx:sqlite-utils" = "latest"
 # node = "lts"
-# aube = "latest"
-# vercel = "latest"
+# vercel = { version = "latest", allow_builds = ["esbuild"] }
 # latest version of @vercel/python in `vercel.json`
 # https://github.com/vercel/vercel/releases?q=python
 
 [settings.pipx]
 uvx = true
-
-# [settings.npm]
-# package_manager = "aube"
 
 [tasks.install]
 description = "安装依赖"
