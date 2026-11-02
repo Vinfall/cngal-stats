@@ -1,9 +1,8 @@
 [tools]
+aube = "latest"
 uv = "latest"
 "pypi:datasette" = "latest"
 "pypi:sqlite-utils" = "latest"
-# node = "24"
-# vercel = { version = "latest", allow_builds = ["esbuild"] }
 # latest version of @vercel/python in `vercel.json`
 # https://github.com/vercel/vercel/releases?q=python
 
@@ -25,7 +24,7 @@ env.META = "metadata.json"
 run = """
 #!/usr/bin/env bash
 datasette publish vercel $DB -m $META --project=$PROJ --generate-vercel-json > vercel.json
-vercel link
+aubx vercel link
 echo "现在可以移除 vercel.json 中的 name"
 """
 hide = true
