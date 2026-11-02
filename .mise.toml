@@ -1,31 +1,13 @@
 [tools]
-aube = "latest"
 uv = "latest"
 "pypi:datasette" = "latest"
 "pypi:sqlite-utils" = "latest"
-# latest version of @vercel/python in `vercel.json`
-# https://github.com/vercel/vercel/releases?q=python
 
 [tasks.install]
 description = "安装依赖"
 run = """
 #!/usr/bin/env bash
-# datasette install https://github.com/Vinfall/datasette2vercel/archive/main.zip
-# datasette install datasette-block-robots
 datasette install datasette-dashboards
-"""
-hide = true
-
-[tasks.init]
-description = "初始化 Vercel 项目"
-env.DB = "cngal.db"
-env.PROJ = "cngal-stats"
-env.META = "metadata.json"
-run = """
-#!/usr/bin/env bash
-datasette publish vercel $DB -m $META --project=$PROJ --generate-vercel-json > vercel.json
-aubx vercel link
-echo "现在可以移除 vercel.json 中的 name"
 """
 hide = true
 
@@ -80,22 +62,6 @@ datasette serve $DB -m metadata.json
 """
 alias = "run"
 depends = "public"
-
-[tasks.deploy]
-description = "部署到 Vercel"
-env.DB = "cngal.db"
-env.PROJ = "cngal-stats"
-env.META = "metadata.json"
-run = """
-#!/usr/bin/env bash
-datasette publish vercel $DB \
-  --metadata=$META \
-  --install=datasette-dashboards \
-  --install=datasette-block-robots \
-  --project=$PROJ
-"""
-# depends = ["backup", "public"]
-hide = true
 
 [tasks.clean]
 description = "清理缓存"
